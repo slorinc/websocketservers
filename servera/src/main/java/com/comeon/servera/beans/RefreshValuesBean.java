@@ -1,4 +1,4 @@
-package com.comeon.servera.model;
+package com.comeon.servera.beans;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class RefreshValues {
+public class RefreshValuesBean {
 
     @Value("${refresh.data:10}")
     private int refreshData;

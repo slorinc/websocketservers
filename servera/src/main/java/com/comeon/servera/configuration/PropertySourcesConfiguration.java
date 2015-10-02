@@ -10,8 +10,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
  * Created by s_lor_000 on 10/2/2015.
  */
 @Configuration
-@PropertySources(value = {
-        @PropertySource("classpath:message.properties")})
+@PropertySource("classpath:message.properties")
 public class PropertySourcesConfiguration {
 
     @Bean

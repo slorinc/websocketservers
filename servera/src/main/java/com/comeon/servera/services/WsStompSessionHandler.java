@@ -1,4 +1,4 @@
-package com.comeon.servera;
+package com.comeon.servera.services;
 
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaders;

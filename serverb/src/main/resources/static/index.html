@@ -6,7 +6,8 @@
     <script src="stomp.js"></script>
     <script type="text/javascript">
         var stompClient = null;
-        
+        var interval;
+
         function setConnected(connected) {
             document.getElementById('connect').disabled = connected;
             document.getElementById('disconnect').disabled = !connected;
@@ -20,11 +21,15 @@
                 setConnected(true);
                 console.log('Connected: ' + frame);
                 stompClient.subscribe('/feed/in', function(wsdata){
+                    console.log(wsdata.body);
+                    console.log(JSON.parse(wsdata.body).refreshView*1000);
+                    console.log("clearing interval:",interval)
+                    clearInterval(interval)
+                    interval = setInterval(refresh, 1000*JSON.parse(wsdata.body).refreshView);
                     showGreeting(JSON.parse(wsdata.body));
                 });
             });
-
-            var interval = setInterval(refresh, 5000);
+            interval = setInterval(refresh, 5000);
         }
         
         function disconnect() {
