@@ -39,6 +39,9 @@ public class WsSockJsClientService {
 
     private WebSocketStompClient stompClient;
 
+    @Value("${ws.endpoint}" )
+    private String url;
+
     @PostConstruct
     public void init() throws InterruptedException {
         ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
@@ -53,7 +56,7 @@ public class WsSockJsClientService {
 
     public void sendData() {
         final String[] randomMsg = loremIpsum.split(" ");
-        ListenableFuture<StompSession> connect = stompClient.connect("ws://localhost:8080/handshake", new WsStompSessionHandler());
+        ListenableFuture<StompSession> connect = stompClient.connect(url, new WsStompSessionHandler());
         connect.addCallback(success -> {
             success.send("/app/update", new WsData(new Random().longs().findAny().getAsLong(), randomMsg[new Random().ints(0, randomMsg.length).findFirst().getAsInt()], refreshValuesBean.getRefreshView()));
             success.disconnect();
