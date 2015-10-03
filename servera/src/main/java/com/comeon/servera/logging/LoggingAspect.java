@@ -42,6 +42,7 @@ public class LoggingAspect {
                 MDC.put(param, arg == null ? null : arg.toString());
                 index++;
             }
+            LoggerFactory.getLogger(joinPoint.getSignature().getDeclaringType()).info("Entering method '{}' with arguments '{}'", ((MethodSignature) joinPoint.getSignature()).getMethod().getName(), Arrays.asList(joinPoint.getArgs()));
 
             return joinPoint.proceed();
 

@@ -29,7 +29,7 @@ public class AdminController {
 
     @RequestMapping(value = "post", method = RequestMethod.POST)
     public String handleFromPost(@ModelAttribute RefreshValuesBean refreshValuesBean) {
-        LOGGER.info("{} added thru admin form.", refreshValuesBean);
+        LOGGER.info("{} values added through admin form.", refreshValuesBean.toString());
         this.refreshValuesBean.setRefreshData(refreshValuesBean.getRefreshData());
         this.refreshValuesBean.setRefreshView(refreshValuesBean.getRefreshView());
         return "form";
