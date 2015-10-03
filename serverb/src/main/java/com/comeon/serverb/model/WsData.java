@@ -41,4 +41,13 @@ public class WsData {
     public void setRefreshView(int refreshView) {
         this.refreshView = refreshView;
     }
+
+    @Override
+    public String toString() {
+        return "WsData{" +
+                "number=" + number +
+                ", text='" + text + '\'' +
+                ", refreshView=" + refreshView +
+                '}';
+    }
 }

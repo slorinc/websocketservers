@@ -2,6 +2,8 @@ package com.comeon.servera.services;
 
 import com.comeon.servera.beans.RefreshValuesBean;
 import com.comeon.servera.model.WsData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
@@ -27,6 +29,8 @@ import java.util.Random;
 @Service
 public class WsSockJsClientService {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(WsSockJsClientService.class);
+
     @Value("${lorem.ipsum}")
     private String loremIpsum;
 
@@ -51,11 +55,10 @@ public class WsSockJsClientService {
         final String[] randomMsg = loremIpsum.split(" ");
         ListenableFuture<StompSession> connect = stompClient.connect("ws://localhost:8080/handshake", new WsStompSessionHandler());
         connect.addCallback(success -> {
-            success.send("/app/update", new WsData(new Random().longs().findAny().getAsLong(), randomMsg[new Random().ints(0, randomMsg.length).findFirst().getAsInt()],refreshValuesBean.getRefreshView()));
+            success.send("/app/update", new WsData(new Random().longs().findAny().getAsLong(), randomMsg[new Random().ints(0, randomMsg.length).findFirst().getAsInt()], refreshValuesBean.getRefreshView()));
             success.disconnect();
         }, fail -> {
-            System.err.println(fail.getMessage());
-            System.err.println("Fail");
+            LOGGER.error("Failed sending message! {}", fail.getMessage());
         });
     }
 }
