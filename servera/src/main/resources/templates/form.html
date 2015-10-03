@@ -4,12 +4,37 @@
     <title>ComeOn Admin Form</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+<style>
+    .fieldError {
+        color: white;
+        background: indianred;
+        border-radius: 25px;
+        padding: 10px;
+    }
+
+    .fieldSuccess {
+        color: white;
+        background: #4ac04d;
+        border-radius: 15px;
+        padding: 10px;
+    }
+</style>
 <body>
-<h1>Form</h1>
+
+<h1>Admin Form</h1>
+<span th:if="${successMessage!=null}" th:text="${successMessage}" class="fieldSuccess"/>
+
 <form action="#" th:action="@{/internal/admin/post}" th:object="${refreshValuesBean}" method="post">
+
+
     <p>refreshData: <input type="text" th:field="*{refreshData}" /></p>
+    <span th:if="${#fields.hasErrors('refreshData')}" th:errors="*{refreshData}" th:errorclass="fieldError" />
+
     <p>refreshView: <input type="text" th:field="*{refreshView}" /></p>
+    <span th:if="${#fields.hasErrors('refreshView')}" th:errors="*{refreshView}" th:errorclass="fieldError" />
+
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
 </form>
 </body>
 </html>
