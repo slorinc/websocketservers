@@ -17,7 +17,7 @@ public class WsController {
 
     @MessageMapping("/refresh")
     @SendTo("/feed/in")
-    public WsData greeting() throws Exception {
+    public WsData greeting(){
         return new WsData(data.getNumber(), data.getText(), data.getRefreshView());
     }
 

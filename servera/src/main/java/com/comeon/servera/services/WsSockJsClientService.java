@@ -35,7 +35,7 @@ public class WsSockJsClientService {
     private String loremIpsum;
 
     @Autowired
-    RefreshValuesBean refreshValuesBean;
+    private RefreshValuesBean refreshValuesBean;
 
     private WebSocketStompClient stompClient;
 
@@ -60,8 +60,6 @@ public class WsSockJsClientService {
         connect.addCallback(success -> {
             success.send("/app/update", new WsData(new Random().longs().findAny().getAsLong(), randomMsg[new Random().ints(0, randomMsg.length).findFirst().getAsInt()], refreshValuesBean.getRefreshView()));
             success.disconnect();
-        }, fail -> {
-            LOGGER.error("Failed sending message! {}", fail.getMessage());
-        });
+        }, fail -> LOGGER.error("Failed sending message! {}", fail.getMessage()));
     }
 }

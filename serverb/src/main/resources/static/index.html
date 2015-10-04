@@ -23,8 +23,8 @@
                 stompClient.subscribe('/feed/in', function(wsdata){
                     console.log(wsdata.body);
                     console.log(JSON.parse(wsdata.body).refreshView*1000);
-                    console.log("clearing interval:",interval)
-                    clearInterval(interval)
+                    console.log("clearing interval:",interval);
+                    clearInterval(interval);
                     interval = setInterval(refresh, 1000*JSON.parse(wsdata.body).refreshView);
                     showGreeting(JSON.parse(wsdata.body));
                 });

@@ -37,9 +37,7 @@ public class CustomSchedulingConfigurer implements SchedulingConfigurer {
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         taskRegistrar.setScheduler(taskExecutor());
         taskRegistrar.addTriggerTask(
-                () -> {
-                    wsSockJsClientService.sendData();
-                },
+                wsSockJsClientService::sendData,
                 triggerContext -> {
                     Calendar nextExecutionTime = new GregorianCalendar();
                     Date lastActualExecutionTime = triggerContext.lastActualExecutionTime();
